@@ -1,7 +1,7 @@
 package books
 
-type BookStore interface {
-	List() []Book
-	GetById(id string) *Book
-	Create(book *Book) *Book
+type Store interface {
+	List() ([]Book, error)
+	GetById(id int) (*Book, error)
+	Create(book *Book) (*Book, error)
 }
