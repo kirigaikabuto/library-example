@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  library-app:
+    build: ./
+    command: ./binary
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_DB: ${POSTGRES_DBNAME}
+      POSTGRES_PARAM: ${POSTGRES_PARAM}
+      POSTGRES_USER: ${POSTGRES_USER}
+      PORT: ${PORT}
+
+  db:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - ./.database/postgres/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_DB: ${POSTGRES_DBNAME}
+    ports:
+      - "5436:5432"

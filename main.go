@@ -7,7 +7,7 @@ import (
 	"github.com/kirigaikabuto/library-example/books"
 	setdata_common "github.com/kirigaikabuto/setdata-common"
 	"github.com/rs/zerolog/log"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"net/http"
 	"os"
 	"os/signal"
@@ -24,7 +24,7 @@ var (
 	postgresHost         = ""
 	postgresPort         = 5432
 	postgresParams       = ""
-	port                 = ""
+	port                 = "8080"
 )
 
 func parseEnvFile() {
@@ -40,7 +40,6 @@ func parseEnvFile() {
 
 func run(c *cli.Context) error {
 	parseEnvFile()
-	gin.SetMode(gin.ReleaseMode)
 	cfg := books.PostgresConfig{
 		Host:     postgresHost,
 		Port:     postgresPort,
@@ -92,15 +91,14 @@ func run(c *cli.Context) error {
 }
 
 func main() {
-	app := cli.NewApp()
-	app.Name = "libary api"
-	app.Description = ""
-	app.Usage = "library api"
-	app.UsageText = "library api"
-	app.Version = version
-	app.Action = run
+	app := &cli.App{
+		Name:    "libary api",
+		Version: version,
+		Usage:   "library api",
+		Action:  run,
+	}
 	err := app.Run(os.Args)
 	if err != nil {
-		log.Err(err)
+		log.Fatal().Err(err).Msg(err.Error())
 	}
 }

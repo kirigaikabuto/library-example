@@ -1,0 +1,6 @@
+### GET all data
+GET localhost:5000/books/
+Accept: application/json
+
+### GET by id
+GET localhost:5000/books/?id=1
