@@ -3,22 +3,22 @@ package books
 type ListCommand struct {
 }
 
-func (cmd *ListCommand) Exec(service Service) (interface{}, error) {
-	return service.List(cmd)
+func (cmd *ListCommand) Exec(svc interface{}) (interface{}, error) {
+	return svc.(Service).List(cmd)
 }
 
 type CreateCommand struct {
 	Name string `json:"name,omitempty"`
 }
 
-func (cmd *CreateCommand) Exec(service Service) (interface{}, error) {
-	return service.Create(cmd)
+func (cmd *CreateCommand) Exec(pub interface{}) (interface{}, error) {
+	return pub.(Service).Create(cmd)
 }
 
 type GetByIdCommand struct {
 	Id int `json:"id"`
 }
 
-func (cmd *GetByIdCommand) Exec(service Service) (interface{}, error) {
-	return service.GetById(cmd)
+func (cmd *GetByIdCommand) Exec(svc interface{}) (interface{}, error) {
+	return svc.(Service).GetById(cmd)
 }
