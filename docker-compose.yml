@@ -5,9 +5,10 @@ services:
     build: ./
     command: ./binary
     ports:
-      - 5000:5000
+      - 5000:${PORT}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_PORT: ${POSTGRES_PORT}
@@ -28,3 +29,9 @@ services:
       POSTGRES_DB: ${POSTGRES_DBNAME}
     ports:
       - "5436:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DBNAME}" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
