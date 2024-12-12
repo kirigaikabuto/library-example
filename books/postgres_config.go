@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-type Config struct {
+type PostgresConfig struct {
 	Host             string
 	Port             int
 	User             string
@@ -15,7 +15,7 @@ type Config struct {
 	ConnectionString string
 }
 
-func getConnString(cfg Config) string {
+func getConnString(cfg PostgresConfig) string {
 	var connStr string
 	if cfg.ConnectionString == "" {
 		connStr = "postgres://"

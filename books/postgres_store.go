@@ -17,7 +17,7 @@ type postgresStore struct {
 	db *sql.DB
 }
 
-func NewPostgresStore(cfg Config) (Store, error) {
+func NewPostgresStore(cfg PostgresConfig) (Store, error) {
 	db, err := getDbConn(getConnString(cfg))
 	if err != nil {
 		return nil, err
