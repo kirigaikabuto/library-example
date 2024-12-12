@@ -4,3 +4,11 @@ Accept: application/json
 
 ### GET by id
 GET localhost:5000/books/?id=1
+
+### POST create books
+POST localhost:5000/books/
+Content-Type: application/json
+
+{
+  "name": "content1"
+}
